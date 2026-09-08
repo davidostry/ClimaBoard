@@ -1,5 +1,6 @@
 import requests
 from app.schemas.city import City
+from app.schemas.weather import Weather, Current, Daily
 
 
 
@@ -32,7 +33,32 @@ def get_weather(latitude, longitude):
         "forecast_days": 7,
         "timezone": "auto"})
     data = response.json()
-    return data
+
+    current = Current(
+        temperature=data["current"]["temperature_2m"],
+        wind_speed=data["current"]["wind_speed_10m"],
+        weather_code=data["current"]["weather_code"]
+    )
+
+    daily_data = data["daily"]
+
+    daily = []
+
+    for i in range(len(daily_data["time"])):
+        day = Daily(
+            date=daily_data["time"][i],
+            temperature_min=daily_data["temperature_2m_min"][i],
+            temperature_max=daily_data["temperature_2m_max"][i],
+            weather_code=daily_data["weather_code"][i]
+        )
+
+        daily.append(day)
+
+    return Weather(
+        current=current,
+        daily=daily
+    )
+
 
 
 

@@ -6,3 +6,4 @@ router = APIRouter()
 def favorites():
     data = "momo"
     return data
+
