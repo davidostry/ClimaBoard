@@ -17,7 +17,7 @@ def search_cities(name):
             name=c["name"],
             latitude=c["latitude"],
             longitude=c["longitude"],
-            country=c["country"]
+            country=c.get("country", "")
         )
 
         cities.append(city)
