@@ -6,7 +6,7 @@ from app.schemas.weather import Weather, Current, Daily
 
 def search_cities(name):
     response = requests.get("https://geocoding-api.open-meteo.com/v1/search", params={ "name": name, "count": 20, "language": "en", "format": "json"})
-
+    response.raise_for_status()
     data = response.json()
     results = data.get("results", [])
 
@@ -32,6 +32,7 @@ def get_weather(latitude, longitude):
         "daily": "temperature_2m_max,temperature_2m_min,weather_code",
         "forecast_days": 7,
         "timezone": "auto"})
+    response.raise_for_status()
     data = response.json()
 
     current = Current(

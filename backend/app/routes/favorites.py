@@ -1,9 +1,14 @@
 from fastapi import APIRouter
+from app.schemas.favorites import Favorite
 
-router = APIRouter()
+router = APIRouter(prefix= "/favorites")
+favorites = []
 
-@router.get("/favorites")
-def favorites():
-    data = "momo"
-    return data
+@router.post("/")
+def add_favorite(favorite: Favorite):
+    
+    favorites.append(favorite)
+    return favorites
+
+
 
