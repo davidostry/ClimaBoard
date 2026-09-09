@@ -8,3 +8,8 @@ router = APIRouter(prefix="/weather")
 def search(latitude: float = Query(..., ge=-90, le=90), longitude: float= Query(..., ge=-180, le=180)):
     data = get_weather(latitude, longitude)
     return data
+
+@router.get("/forecast")
+def forecast(latitude: float = Query(..., ge=-90, le=90), longitude: float= Query(..., ge=-180, le=180), days: int = Query(..., ge=1, le=16)):
+    data = get_weather(latitude, longitude, days)
+    return data

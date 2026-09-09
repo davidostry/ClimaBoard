@@ -24,13 +24,13 @@ def search_cities(name):
 
     return cities
 
-def get_weather(latitude, longitude):
+def get_weather(latitude, longitude, days = 7):
     response = requests.get("https://api.open-meteo.com/v1/forecast", params= {
         "latitude": latitude,
         "longitude": longitude,
         "current": "temperature_2m,wind_speed_10m,weather_code",
         "daily": "temperature_2m_max,temperature_2m_min,weather_code",
-        "forecast_days": 7,
+        "forecast_days": days,
         "timezone": "auto"})
     response.raise_for_status()
     data = response.json()
@@ -59,6 +59,9 @@ def get_weather(latitude, longitude):
         current=current,
         daily=daily
     )
+
+
+
 
 
 
