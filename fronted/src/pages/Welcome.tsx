@@ -18,19 +18,19 @@ export default function Welcome() {
 
   return (
     <div>
-      <h1>Welcome to ClimaBoard</h1>
+      <h1>ברוך הבא ללוח התחזית</h1>
 
-      <p>Enter your explorer name</p>
+      <p>אנא הכנס את שמך</p>
 
       <form onSubmit={handleSubmit}>
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
-          placeholder="Explorer name"
+          placeholder="שם המחפש"
         />
 
         <button type="submit">
-          Enter
+          הירשם כאן
         </button>
       </form>
     </div>

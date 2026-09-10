@@ -1,7 +1,12 @@
-import React from 'react'
 
 export default function Favorites() {
-  return (
-    <div>Favorites</div>
-  )
+    return (
+        <div>
+            <h1>מועדפים</h1>
+            <p>אין עדיין ערים מועדפות</p>
+
+        </div>
+
+
+    )
 }
