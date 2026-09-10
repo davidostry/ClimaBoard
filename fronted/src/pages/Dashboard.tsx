@@ -7,7 +7,7 @@ export default function Dashboard() {
     <div>
       <h2>שלום {explorerName}</h2>
 
-      <h2>לוח תחזית</h2>
+      {/* <h2>לוח תחזית</h2> */}
 
       <p>ברוך הבא ללוח מזג האוויר למטיילים</p>
 

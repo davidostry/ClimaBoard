@@ -18,7 +18,7 @@ export default function Welcome() {
 
   return (
     <div>
-      <h1>ברוך הבא ללוח התחזית</h1>
+      <h1> תחזית מזג האוויר</h1>
 
       <p>אנא הכנס את שמך</p>
 

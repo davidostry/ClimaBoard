@@ -1,11 +1,24 @@
 import { useState } from "react";
 import type { City } from "../types/city";
+import { useFavoritesStore } from "../store/favoritesStore"
 
 export default function Search() {
   const [query, setQuery] = useState("");
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const addFavorite = useFavoritesStore(
+    (state) => state.addFavorite
+  );
+
+  const removeFavorite = useFavoritesStore(
+    (state) => state.removeFavorite
+  );
+
+  const isFavorite = useFavoritesStore(
+    (state) => state.isFavorite
+  );
 
   async function searchCities() {
     if (query.length < 2) {
@@ -26,12 +39,21 @@ export default function Search() {
       }
 
       const data = await response.json();
+console.log(data);
 
       setCities(data);
     } catch {
       setError("לא ניתן לבצע את החיפוש");
     } finally {
       setLoading(false);
+    }
+  }
+
+  function handleFavorite(city: City) {
+    if (isFavorite(city.id)) {
+      removeFavorite(city.id);
+    } else {
+      addFavorite(city);
     }
   }
 
@@ -46,7 +68,9 @@ export default function Search() {
         placeholder="הקלד שם עיר..."
       />
 
-      <button onClick={searchCities}>חפש</button>
+      <button onClick={searchCities}>
+        חפש
+      </button>
 
       {loading && <p>טוען...</p>}
 
@@ -56,15 +80,27 @@ export default function Search() {
         <p>אין תוצאות</p>
       )}
 
-      {cities.map((city) => (
-        <div key={city.id}>
-          <h2>{city.name}</h2>
-          <p>{city.country}</p>
-          <p>
-            {city.latitude}, {city.longitude}
-          </p>
-        </div>
-      ))}
+      {cities.map((city) => {
+        const favorite = isFavorite(city.id);
+
+        return (
+          <div key={city.id}>
+            <h2>{city.name}</h2>
+
+            <p>{city.country}</p>
+
+            <p>
+              {city.latitude}, {city.longitude}
+            </p>
+
+            <button
+              onClick={() => handleFavorite(city)}
+            >
+              {favorite ? "❤️ הסר ממועדפים" : "🤍 הוסף למועדפים"}
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }
