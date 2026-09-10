@@ -1,7 +1,11 @@
-import React from 'react'
+import { Navigate, Outlet } from "react-router";
 
 export default function ProtectedRoute() {
-  return (
-    <div>ProtectedRoute</div>
-  )
+  const explorerName = localStorage.getItem("explorerName");
+
+  if (!explorerName) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 }
