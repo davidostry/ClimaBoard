@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router";
+import "./Header.css";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -9,10 +10,12 @@ export default function Header() {
     }
 
     return (
-        <div>
-            <Link to="/app">לוח תחזית</Link>
+        <header className="header">
+            <Link className="header-logo" to="/app">
+                לוח תחזית
+            </Link>
 
-            <nav>
+            <nav className="header-nav">
                 <Link to="/app">דשבורד</Link>
                 <Link to="/app/search">חיפוש</Link>
                 <Link to="/app/favorites">מועדפים</Link>
@@ -23,6 +26,7 @@ export default function Header() {
                     התנתק
                 </button>
             </nav>
-        </div>
+        </header>
     );
 }
+

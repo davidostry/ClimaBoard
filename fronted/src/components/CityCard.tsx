@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { City } from "../types/city";
 import { useFavoritesStore } from "../store/favoritesStore";
+import "./CityCard.css";
 
 type CityCardProps = {
     city: City;
@@ -35,27 +36,41 @@ export default function CityCard({ city }: CityCardProps) {
 
     return (
         <div className="city-card">
-            <h3>{city.name}</h3>
+            <h3 className="city-card-title">
+                {city.name}
+            </h3>
 
-            <p>{city.country}</p>
+            <p className="city-card-country">
+                {city.country}
+            </p>
 
-            <p>
+            <p className="city-card-info">
                 Latitude: {city.latitude}
             </p>
 
-            <p>
+            <p className="city-card-info">
                 Longitude: {city.longitude}
             </p>
 
-            <button onClick={handleDetails}>
-                לפרטי העיר
-            </button>
+            <div className="city-card-actions">
+                <button
+                    className="city-card-details"
+                    onClick={handleDetails}
+                >
+                    לפרטי העיר
+                </button>
 
-            <button onClick={handleFavorite}>
-                {favorite
-                    ? "⭐ הסר ממועדפים"
-                    : "☆ הוסף למועדפים"}
-            </button>
+                <button
+                    className={`city-card-favorite ${
+                        favorite ? "is-favorite" : ""
+                    }`}
+                    onClick={handleFavorite}
+                >
+                    {favorite
+                        ? "⭐ הסר ממועדפים"
+                        : "☆ הוסף למועדפים"}
+                </button>
+            </div>
         </div>
     );
 }

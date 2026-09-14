@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { City } from "../types/city";
 import type { Weather } from "../types/weather";
+import "./Compare.css"
 
 type CompareResult = {
   city1: Weather;
@@ -128,158 +129,219 @@ export default function Compare() {
   }
 
   return (
-    <div>
-      <h1>השוואת ערים</h1>
+    <div className="compare-page">
 
-      {error && <p>{error}</p>}
+      <h1 className="compare-title">
+        השוואת ערים
+      </h1>
 
-      <section>
-       <h2>🌍 עיר ראשונה</h2>
-
-        <input
-          type="text"
-          value={search1}
-          onChange={(e) => setSearch1(e.target.value)}
-          placeholder="חפש עיר..."
-        />
-
-        <button
-          onClick={() => searchCity(search1, setCities1)}
-        >
-          חפש
-        </button>
-
-        {cities1.map((city) => (
-          <div key={city.id}>
-            <button
-              onClick={() => {
-                setCity1(city);
-                setCities1([]);
-              }}
-            >
-              {city.name}, {city.country}
-            </button>
-          </div>
-        ))}
-
-        {city1 && (
-          <p>
-            נבחרה: {city1.name}, {city1.country}
-          </p>
-        )}
-      </section>
-
-      <hr />
-
-      <section>
-    <h2>🌍 עיר שנייה</h2>
-
-        <input
-          type="text"
-          value={search2}
-          onChange={(e) => setSearch2(e.target.value)}
-          placeholder="חפש עיר..."
-        />
-
-        <button
-          onClick={() => searchCity(search2, setCities2)}
-        >
-          חפש
-        </button>
-
-        {cities2.map((city) => (
-          <div key={city.id}>
-            <button
-              onClick={() => {
-                setCity2(city);
-                setCities2([]);
-              }}
-            >
-              {city.name}, {city.country}
-            </button>
-          </div>
-        ))}
-
-        {city2 && (
-          <p>
-            נבחרה: {city2.name}, {city2.country}
-          </p>
-        )}
-      </section>
-
-      <hr />
-
-      <button
-        onClick={compareCities}
-        disabled={!city1 || !city2 || loading}
-      >
-        {loading ? "משווה..." : "השווה"}
-      </button>
-
-      {comparison && (
-        <section>
-          <h2>תוצאות השוואה</h2>
-
-          <div>
-            <h3>
-              🌍 {city1?.name}, {city1?.country}
-            </h3>
-
-            <p>
-              טמפרטורה:{" "}
-              {comparison.city1.current.temperature}°C
-            </p>
-
-            <p>
-              תחושה:{" "}
-              {comparison.city1.current.apparent_temperature}°C
-            </p>
-
-            <p>
-              רוח:{" "}
-              {comparison.city1.current.wind_speed} km/h
-            </p>
-
-            <p>
-              מצב:{" "}
-              {getWeatherDescription(
-                comparison.city1.current.weather_code
-              )}
-            </p>
-          </div>
-
-          <hr />
-
-          <div>
-            <h3>
-              🌍 {city2?.name}, {city2?.country}
-            </h3>
-
-            <p>
-              טמפרטורה:{" "}
-              {comparison.city2.current.temperature}°C
-            </p>
-
-            <p>
-              תחושה:{" "}
-              {comparison.city2.current.apparent_temperature}°C
-            </p>
-
-            <p>
-              רוח:{" "}
-              {comparison.city2.current.wind_speed} km/h
-            </p>
-
-            <p>
-              מצב:{" "}
-              {getWeatherDescription(
-                comparison.city2.current.weather_code
-              )}
-            </p>
-          </div>
-        </section>
+      {error && (
+        <p className="compare-error">
+          {error}
+        </p>
       )}
 
+      <div className="compare-search-container">
+
+        {/* עיר ראשונה */}
+        <section className="compare-search-card">
+
+          <h2>
+            🌍 עיר ראשונה
+          </h2>
+
+          <div className="compare-search-row">
+
+            <input
+              className="compare-input"
+              type="text"
+              value={search1}
+              onChange={(e) => setSearch1(e.target.value)}
+              placeholder="חפש עיר..."
+            />
+
+            <button
+              className="compare-search-button"
+              onClick={() => searchCity(search1, setCities1)}
+            >
+              חפש
+            </button>
+
+          </div>
+
+          {cities1.length > 0 && (
+            <div className="compare-city-list">
+
+              {cities1.map((city) => (
+                <button
+                  className="compare-city-option"
+                  key={city.id}
+                  onClick={() => {
+                    setCity1(city);
+                    setCities1([]);
+                  }}
+                >
+                  {city.name}, {city.country}
+                </button>
+              ))}
+
+            </div>
+          )}
+
+          {city1 && (
+            <div className="compare-selected-city">
+              <strong>נבחרה:</strong>{" "}
+              {city1.name}, {city1.country}
+            </div>
+          )}
+
+        </section>
+
+        {/* עיר שנייה */}
+        <section className="compare-search-card">
+
+          <h2>
+            🌍 עיר שנייה
+          </h2>
+
+          <div className="compare-search-row">
+
+            <input
+              className="compare-input"
+              type="text"
+              value={search2}
+              onChange={(e) => setSearch2(e.target.value)}
+              placeholder="חפש עיר..."
+            />
+
+            <button
+              className="compare-search-button"
+              onClick={() => searchCity(search2, setCities2)}
+            >
+              חפש
+            </button>
+
+          </div>
+
+          {cities2.length > 0 && (
+            <div className="compare-city-list">
+
+              {cities2.map((city) => (
+                <button
+                  className="compare-city-option"
+                  key={city.id}
+                  onClick={() => {
+                    setCity2(city);
+                    setCities2([]);
+                  }}
+                >
+                  {city.name}, {city.country}
+                </button>
+              ))}
+
+            </div>
+          )}
+
+          {city2 && (
+            <div className="compare-selected-city">
+              <strong>נבחרה:</strong>{" "}
+              {city2.name}, {city2.country}
+            </div>
+          )}
+
+        </section>
+
+      </div>
+
+      {/* כפתור השוואה */}
+      <div className="compare-button-container">
+
+        <button
+          className="compare-button"
+          onClick={compareCities}
+          disabled={!city1 || !city2 || loading}
+        >
+          {loading ? "משווה..." : "השווה"}
+        </button>
+
+      </div>
+
+      {/* תוצאות */}
+      {comparison && (
+        <section className="compare-results">
+
+          <h2 className="compare-results-title">
+            תוצאות השוואה
+          </h2>
+
+          <div className="compare-results-container">
+
+            {/* עיר ראשונה */}
+            <div className="compare-result-card">
+
+              <h3>
+                🌍 {city1?.name}, {city1?.country}
+              </h3>
+
+              <p>
+                <strong>טמפרטורה:</strong>{" "}
+                {comparison.city1.current.temperature}°C
+              </p>
+
+              <p>
+                <strong>תחושה:</strong>{" "}
+                {comparison.city1.current.apparent_temperature}°C
+              </p>
+
+              <p>
+                <strong>רוח:</strong>{" "}
+                {comparison.city1.current.wind_speed} km/h
+              </p>
+
+              <p>
+                <strong>מצב:</strong>{" "}
+                {getWeatherDescription(
+                  comparison.city1.current.weather_code
+                )}
+              </p>
+
+            </div>
+
+            {/* עיר שנייה */}
+            <div className="compare-result-card">
+
+              <h3>
+                🌍 {city2?.name}, {city2?.country}
+              </h3>
+
+              <p>
+                <strong>טמפרטורה:</strong>{" "}
+                {comparison.city2.current.temperature}°C
+              </p>
+
+              <p>
+                <strong>תחושה:</strong>{" "}
+                {comparison.city2.current.apparent_temperature}°C
+              </p>
+
+              <p>
+                <strong>רוח:</strong>{" "}
+                {comparison.city2.current.wind_speed} km/h
+              </p>
+
+              <p>
+                <strong>מצב:</strong>{" "}
+                {getWeatherDescription(
+                  comparison.city2.current.weather_code
+                )}
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+      )}
 
     </div>
   );

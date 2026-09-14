@@ -7,21 +7,29 @@ export default function Favorites() {
     );
 
     return (
-        <div>
-            <h1>⭐ הערים המועדפות שלי</h1>
+        <div className="favorites-page">
+
+            <h1 className="favorites-title">
+                ⭐ הערים המועדפות שלי
+            </h1>
 
             {favorites.length === 0 ? (
-                <p>אין עדיין ערים במועדפים</p>
+                <p className="favorites-empty">
+                    אין עדיין ערים במועדפים
+                </p>
             ) : (
-                <div>
+                <div className="favorites-grid">
+
                     {favorites.map((city) => (
                         <CityCard
                             key={city.id}
                             city={city}
                         />
                     ))}
+
                 </div>
             )}
+
         </div>
     );
 }

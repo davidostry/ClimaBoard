@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { City } from "../types/city";
 import CityCard from "../components/CityCard";
+import "./Search.css";
 
 export default function Search() {
     const [query, setQuery] = useState("");
@@ -38,25 +39,41 @@ export default function Search() {
     }
 
     return (
-        <div>
-            <h1>חיפוש ערים</h1>
+        <div className="search">
+            <h1 className="search-title">
+                חיפוש ערים
+            </h1>
 
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="הקלד שם עיר"
-            />
+            <div className="search-form">
+                <input
+                    className="search-input"
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="הקלד שם עיר"
+                />
 
-            <button onClick={handleSearch}>
-                חפש
-            </button>
+                <button
+                    className="search-button"
+                    onClick={handleSearch}
+                >
+                    חפש
+                </button>
+            </div>
 
-            {loading && <p>טוען...</p>}
+            {loading && (
+                <p className="search-loading">
+                    טוען...
+                </p>
+            )}
 
-            {error && <p>{error}</p>}
+            {error && (
+                <p className="search-error">
+                    {error}
+                </p>
+            )}
 
-            <div>
+            <div className="search-results">
                 {cities.map((city) => (
                     <CityCard
                         key={city.id}

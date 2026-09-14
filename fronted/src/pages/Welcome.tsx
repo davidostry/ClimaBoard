@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import "./Welcome.css";
 
 export default function Welcome() {
   const [name, setName] = useState("");
@@ -17,22 +18,28 @@ export default function Welcome() {
   }
 
   return (
-    <div>
-      <h1> תחזית מזג האוויר</h1>
+    <div className="welcome">
+      <h1 className="welcome-title">
+        תחזית מזג האוויר
+      </h1>
 
-      <p>אנא הכנס את שמך</p>
+      <p className="welcome-text">
+        אנא הכנס את שמך
+      </p>
 
-      <form onSubmit={handleSubmit}>
+      <form className="welcome-form" onSubmit={handleSubmit}>
         <input
+          className="welcome-input"
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="שם המחפש"
         />
 
-        <button type="submit">
+        <button className="welcome-button" type="submit">
           הירשם כאן
         </button>
       </form>
     </div>
   );
 }
+

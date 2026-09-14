@@ -1,0 +1,151 @@
+.city-details {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    direction: rtl;
+}
+
+.city-details-title {
+    margin-bottom: 30px;
+
+    color: #2563eb;
+    font-size: 32px;
+    text-align: center;
+}
+
+.city-details-current {
+    background-color: white;
+
+    padding: 25px;
+    margin-bottom: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.city-details-current h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+
+    color: #1e293b;
+    font-size: 22px;
+}
+
+.city-details-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.city-details-info p {
+    flex: 1;
+    min-width: 180px;
+
+    margin: 0;
+    padding: 15px;
+
+    background-color: #f8fafc;
+
+    border-radius: 8px;
+
+    color: #475569;
+    font-size: 15px;
+}
+
+.city-details-info strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #1e293b;
+}
+
+.city-details-forecast-title {
+    margin-bottom: 20px;
+
+    color: #1e293b;
+    font-size: 22px;
+}
+
+.city-details-forecast {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.city-details-day {
+    background-color: white;
+
+    width: 180px;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.city-details-day:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.city-details-day h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+
+    color: #2563eb;
+    font-size: 17px;
+}
+
+.city-details-day p {
+    margin: 8px 0;
+
+    color: #475569;
+    font-size: 14px;
+}
+
+.city-details-loading {
+    padding: 40px;
+
+    color: #2563eb;
+    font-size: 18px;
+    text-align: center;
+}
+
+.city-details-error {
+    padding: 20px;
+
+    background-color: #fee2e2;
+
+    border-radius: 8px;
+
+    color: #b91c1c;
+    text-align: center;
+}
+
+.city-details-empty {
+    padding: 20px;
+
+    color: #64748b;
+    text-align: center;
+}
+
+.city-details-footer {
+    margin-top: 35px;
+    padding: 20px;
+
+    color: #64748b;
+
+    font-size: 13px;
+    text-align: center;
+
+    border-top: 1px solid #e2e8f0;
+}

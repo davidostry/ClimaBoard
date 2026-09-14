@@ -1,6 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import "./CityDetailes.css"
 
 type Weather = {
     current: {
@@ -64,7 +64,7 @@ function getWeatherDescription(code: number) {
 }
 
 export default function CityDetails() {
-    const { id } = useParams();
+    useParams();
     const [searchParams] = useSearchParams();
 
     const name = searchParams.get("name");
@@ -107,71 +107,110 @@ export default function CityDetails() {
     }, [latitude, longitude]);
 
     if (loading) {
-        return <p>טוען מזג אוויר...</p>;
+        return (
+            <p className="city-details-loading">
+                טוען מזג אוויר...
+            </p>
+        );
     }
 
     if (error) {
-        return <p>{error}</p>;
+        return (
+            <p className="city-details-error">
+                {error}
+            </p>
+        );
     }
 
     if (!weather) {
-        return <p>לא נמצאו נתוני מזג אוויר</p>;
+        return (
+            <p className="city-details-empty">
+                לא נמצאו נתוני מזג אוויר
+            </p>
+        );
     }
 
     return (
-        <div>
-            <h1>{name}</h1>
+        <div className="city-details">
 
-            <p>City ID: {id}</p>
+            <h1 className="city-details-title">
+                {name}
+            </h1>
 
-            <h2>מזג אוויר נוכחי</h2>
+            <section className="city-details-current">
 
-            <p>
-                טמפרטורה: {weather.current.temperature}°C
-            </p>
+                <h2>
+                    מזג אוויר נוכחי
+                </h2>
 
-            <p>
-                תחושה: {weather.current.apparent_temperature}°C
-            </p>
-
-            <p>
-                רוח: {weather.current.wind_speed} km/h
-            </p>
-
-            <p>
-                מצב:{" "}
-                {getWeatherDescription(
-                    weather.current.weather_code
-                )}
-            </p>
-
-            <h2>תחזית</h2>
-
-            {weather.daily.map((day) => (
-                <div key={day.date}>
-                    <h3>{day.date}</h3>
+                <div className="city-details-info">
 
                     <p>
-                        מינימום: {day.temperature_min}°C
+                        <strong>טמפרטורה</strong>
+                        {weather.current.temperature}°C
                     </p>
 
                     <p>
-                        מקסימום: {day.temperature_max}°C
+                        <strong>תחושה</strong>
+                        {weather.current.apparent_temperature}°C
                     </p>
 
                     <p>
-                        מצב:{" "}
+                        <strong>רוח</strong>
+                        {weather.current.wind_speed} km/h
+                    </p>
+
+                    <p>
+                        <strong>מצב</strong>
                         {getWeatherDescription(
-                            day.weather_code
+                            weather.current.weather_code
                         )}
                     </p>
-                </div>
-            ))}
 
-            <p>
+                </div>
+
+            </section>
+
+            <h2 className="city-details-forecast-title">
+                תחזית
+            </h2>
+
+            <div className="city-details-forecast">
+
+                {weather.daily.map((day) => (
+                    <div
+                        className="city-details-day"
+                        key={day.date}
+                    >
+
+                        <h3>
+                            {day.date}
+                        </h3>
+
+                        <p>
+                            מינימום: {day.temperature_min}°C
+                        </p>
+
+                        <p>
+                            מקסימום: {day.temperature_max}°C
+                        </p>
+
+                        <p>
+                            מצב:{" "}
+                            {getWeatherDescription(
+                                day.weather_code
+                            )}
+                        </p>
+
+                    </div>
+                ))}
+
+            </div>
+
+            <p className="city-details-footer">
                 Weather data by Open-Meteo.com
             </p>
+
         </div>
     );
 }
-

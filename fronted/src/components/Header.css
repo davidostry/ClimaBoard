@@ -1,0 +1,47 @@
+
+.header {
+    background-color: #2563eb;
+    padding: 15px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
+}
+
+.header-nav button {
+    background-color: white;
+    color: #2563eb;
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 8px 14px;
+
+    cursor: pointer;
+}
+
+.header-nav button:hover {
+    background-color: #e5e7eb;
+}
