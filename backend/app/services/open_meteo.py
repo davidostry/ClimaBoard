@@ -1,12 +1,22 @@
 import requests
+
 from app.schemas.city import City
 from app.schemas.weather import Weather, Current, Daily
 
 
-
 def search_cities(name):
-    response = requests.get("https://geocoding-api.open-meteo.com/v1/search", params={ "name": name, "count": 20, "language": "en", "format": "json"})
+    response = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search",
+        params={
+            "name": name,
+            "count": 10,
+            "language": "he",
+            "format": "json"
+        }
+    )
+
     response.raise_for_status()
+
     data = response.json()
     results = data.get("results", [])
 
@@ -14,6 +24,7 @@ def search_cities(name):
 
     for c in results:
         city = City(
+            id=c["id"],
             name=c["name"],
             latitude=c["latitude"],
             longitude=c["longitude"],
@@ -24,19 +35,36 @@ def search_cities(name):
 
     return cities
 
-def get_weather(latitude, longitude, days = 7):
-    response = requests.get("https://api.open-meteo.com/v1/forecast", params= {
-        "latitude": latitude,
-        "longitude": longitude,
-        "current": "temperature_2m,wind_speed_10m,weather_code",
-        "daily": "temperature_2m_max,temperature_2m_min,weather_code",
-        "forecast_days": days,
-        "timezone": "auto"})
+
+def get_weather(latitude, longitude, days=7):
+    response = requests.get(
+        "https://api.open-meteo.com/v1/forecast",
+        params={
+            "latitude": latitude,
+            "longitude": longitude,
+            "current": (
+                "temperature_2m,"
+                "apparent_temperature,"
+                "wind_speed_10m,"
+                "weather_code"
+            ),
+            "daily": (
+                "temperature_2m_max,"
+                "temperature_2m_min,"
+                "weather_code"
+            ),
+            "forecast_days": days,
+            "timezone": "auto"
+        }
+    )
+
     response.raise_for_status()
+
     data = response.json()
 
     current = Current(
         temperature=data["current"]["temperature_2m"],
+        apparent_temperature=data["current"]["apparent_temperature"],
         wind_speed=data["current"]["wind_speed_10m"],
         weather_code=data["current"]["weather_code"]
     )
@@ -59,33 +87,3 @@ def get_weather(latitude, longitude, days = 7):
         current=current,
         daily=daily
     )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

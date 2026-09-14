@@ -5,3 +5,4 @@ class City(BaseModel):
     latitude: float
     longitude: float
     country: str
+    id: int
