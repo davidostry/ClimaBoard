@@ -1,0 +1,153 @@
+.atbash-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    text-align: center;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.atbash-container h1 {
+    margin-bottom: 10px;
+}
+
+.atbash-description {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+
+
+.textarea-wrapper {
+    position: relative;
+    margin-top: 25px;
+    padding: 3px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #4a90e2, #7b61ff);
+}
+
+.atbash-textarea {
+    position: relative;
+    display: block;
+
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+
+    padding: 40px 18px 35px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: #f8faff;
+    color: #222;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    direction: rtl;
+    resize: vertical;
+}
+
+.atbash-textarea::placeholder {
+    color: #9aa4b2;
+}
+
+.atbash-textarea:focus {
+    outline: none;
+    background: white;
+}
+
+.textarea-label {
+    position: absolute;
+
+    top: 10px;
+    right: 15px;
+
+    z-index: 2;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    color: #4a90e2;
+}
+
+.textarea-hint {
+    position: absolute;
+
+    bottom: 10px;
+    left: 15px;
+
+    z-index: 2;
+
+    font-size: 11px;
+    color: #9aa4b2;
+}
+
+
+
+.atbash-button {
+    margin-top: 18px;
+
+    padding: 9px 22px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: linear-gradient(135deg, #4a90e2, #7b61ff);
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.atbash-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+}
+
+.atbash-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+.atbash-error {
+    margin-top: 15px;
+    color: #d32f2f;
+}
+
+
+
+.atbash-result {
+    margin-top: 25px;
+    padding: 18px;
+
+    background: #f5f7fa;
+
+    border-radius: 10px;
+
+    direction: rtl;
+    text-align: right;
+}
+
+.atbash-result h2 {
+    margin-top: 0;
+    color: #4a90e2;
+}
+
+.atbash-result p {
+    padding: 12px;
+
+    background: white;
+
+    border-radius: 7px;
+
+    word-break: break-word;
+}

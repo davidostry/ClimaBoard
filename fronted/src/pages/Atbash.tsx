@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Atbash.css";
 
 export default function Atbash() {
     const [text, setText] = useState("");
@@ -45,30 +46,48 @@ export default function Atbash() {
     }
 
     return (
-        <div>
-            <h1>אתב"ש</h1>
+        <div className="atbash-container">
+            <h1> אתב"ש</h1>
 
-            <textarea
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="הקלד טקסט..."
-                rows={5}
-            />
+            <p className="atbash-description">
+                הצפן את הטקסט שלך באמצעות שיטת אתב"ש
+            </p>
 
-            <br />
+            <div className="textarea-wrapper">
+                <div className="textarea-label">
+                     הטקסט שלך
+                </div>
+
+                <textarea
+                    className="atbash-textarea"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    placeholder="כתוב כאן את הטקסט שתרצה להצפין..."
+                    rows={6}
+                />
+
+                <div className="textarea-hint">
+                     הטקסט יוצפן באופן אוטומטי
+                </div>
+            </div>
 
             <button
+                className="atbash-button"
                 onClick={handleAtbash}
                 disabled={loading}
             >
-                {loading ? "מצפין..." : "הצפן"}
+                {loading ? " מצפין..." : " הצפן"}
             </button>
 
-            {error && <p>{error}</p>}
+            {error && (
+                <p className="atbash-error">
+                    {error}
+                </p>
+            )}
 
             {result && (
-                <div>
-                    <h2>תוצאה</h2>
+                <div className="atbash-result">
+                    <h2> התוצאה</h2>
                     <p>{result}</p>
                 </div>
             )}
