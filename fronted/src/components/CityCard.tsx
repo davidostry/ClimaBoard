@@ -1,22 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import type { City } from "../types/city";
-import { useFavoritesStore } from "../store/favoritesStore"
+import { useFavoritesStore } from "../store/favoritesStore";
 
 type CityCardProps = {
     city: City;
 };
 
 export default function CityCard({ city }: CityCardProps) {
-    const addFavorite = useFavoritesStore(
-        (state) => state.addFavorite
-    );
+    const navigate = useNavigate();
 
-    const removeFavorite = useFavoritesStore(
-        (state) => state.removeFavorite
-    );
-
-    const isFavorite = useFavoritesStore(
-        (state) => state.isFavorite
-    );
+    const {
+        addFavorite,
+        removeFavorite,
+        isFavorite
+    } = useFavoritesStore();
 
     const favorite = isFavorite(city.id);
 
@@ -28,12 +25,36 @@ export default function CityCard({ city }: CityCardProps) {
         }
     }
 
+    function handleDetails() {
+        navigate(
+            `/app/city/${city.id}?name=${encodeURIComponent(
+                city.name
+            )}&latitude=${city.latitude}&longitude=${city.longitude}`
+        );
+    }
+
     return (
         <div className="city-card">
-            <h2>{city.name}</h2>
+            <h3>{city.name}</h3>
+
+            <p>{city.country}</p>
+
+            <p>
+                Latitude: {city.latitude}
+            </p>
+
+            <p>
+                Longitude: {city.longitude}
+            </p>
+
+            <button onClick={handleDetails}>
+                לפרטי העיר
+            </button>
 
             <button onClick={handleFavorite}>
-                {favorite ? "❤️" : "🤍"}
+                {favorite
+                    ? "⭐ הסר ממועדפים"
+                    : "☆ הוסף למועדפים"}
             </button>
         </div>
     );

@@ -1,106 +1,69 @@
 import { useState } from "react";
 import type { City } from "../types/city";
-import { useFavoritesStore } from "../store/favoritesStore"
+import CityCard from "../components/CityCard";
 
 export default function Search() {
-  const [query, setQuery] = useState("");
-  const [cities, setCities] = useState<City[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+    const [query, setQuery] = useState("");
+    const [cities, setCities] = useState<City[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-  const addFavorite = useFavoritesStore(
-    (state) => state.addFavorite
-  );
+    async function handleSearch() {
+        if (query.trim().length < 2) {
+            setError("יש להקליד לפחות 2 תווים");
+            return;
+        }
 
-  const removeFavorite = useFavoritesStore(
-    (state) => state.removeFavorite
-  );
+        setLoading(true);
+        setError("");
 
-  const isFavorite = useFavoritesStore(
-    (state) => state.isFavorite
-  );
+        try {
+            const response = await fetch(
+                `http://localhost:8000/cities/search?query=${encodeURIComponent(query)}`
+            );
 
-  async function searchCities() {
-    if (query.length < 2) {
-      setError("יש להזין לפחות 2 תווים");
-      return;
+            if (!response.ok) {
+                throw new Error("שגיאה בחיפוש");
+            }
+
+            const data: City[] = await response.json();
+
+            setCities(data);
+        } catch {
+            setError("לא ניתן לבצע את החיפוש");
+            setCities([]);
+        } finally {
+            setLoading(false);
+        }
     }
 
-    try {
-      setLoading(true);
-      setError("");
+    return (
+        <div>
+            <h1>חיפוש ערים</h1>
 
-      const response = await fetch(
-        `http://localhost:8000/cities/search?query=${query}`
-      );
+            <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="הקלד שם עיר"
+            />
 
-      if (!response.ok) {
-        throw new Error("שגיאה בחיפוש");
-      }
-
-      const data = await response.json();
-console.log(data);
-
-      setCities(data);
-    } catch {
-      setError("לא ניתן לבצע את החיפוש");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function handleFavorite(city: City) {
-    if (isFavorite(city.id)) {
-      removeFavorite(city.id);
-    } else {
-      addFavorite(city);
-    }
-  }
-
-  return (
-    <div>
-      <h1>חיפוש עיר</h1>
-
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="הקלד שם עיר..."
-      />
-
-      <button onClick={searchCities}>
-        חפש
-      </button>
-
-      {loading && <p>טוען...</p>}
-
-      {error && <p>{error}</p>}
-
-      {!loading && !error && cities.length === 0 && (
-        <p>אין תוצאות</p>
-      )}
-
-      {cities.map((city) => {
-        const favorite = isFavorite(city.id);
-
-        return (
-          <div key={city.id}>
-            <h2>{city.name}</h2>
-
-            <p>{city.country}</p>
-
-            <p>
-              {city.latitude}, {city.longitude}
-            </p>
-
-            <button
-              onClick={() => handleFavorite(city)}
-            >
-              {favorite ? "❤️ הסר ממועדפים" : "🤍 הוסף למועדפים"}
+            <button onClick={handleSearch}>
+                חפש
             </button>
-          </div>
-        );
-      })}
-    </div>
-  );
+
+            {loading && <p>טוען...</p>}
+
+            {error && <p>{error}</p>}
+
+            <div>
+                {cities.map((city) => (
+                    <CityCard
+                        key={city.id}
+                        city={city}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 }
