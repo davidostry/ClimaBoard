@@ -10,6 +10,7 @@ import CityDetails from "./pages/CityDetailes"
 import Favorites from "./pages/Favorites";
 import Compare from "./pages/Compare";
 import NotFound from "./pages/NotFound";
+import Atbash from "./pages/Atbash";
 
 function App() {
     return (
@@ -22,18 +23,10 @@ function App() {
                 <Route element={<Layout />}>
                     <Route path="/app" element={<Dashboard />} />
                     <Route path="/app/search" element={<Search />} />
-                    <Route
-                        path="/app/city/:id"
-                        element={<CityDetails />}
-                    />
-                    <Route
-                        path="/app/favorites"
-                        element={<Favorites />}
-                    />
-                    <Route
-                        path="/app/compare"
-                        element={<Compare />}
-                    />
+                    <Route path="/app/city/:id" element={<CityDetails />} />
+                    <Route path="/app/favorites" element={<Favorites />} />
+                    <Route path="/app/compare" element={<Compare />} />
+                    <Route path="/app/atbash" element={<Atbash />} />
                 </Route>
             </Route>
 

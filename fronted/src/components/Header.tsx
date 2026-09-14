@@ -17,6 +17,7 @@ export default function Header() {
                 <Link to="/app/search">חיפוש</Link>
                 <Link to="/app/favorites">מועדפים</Link>
                 <Link to="/app/compare">השוואה</Link>
+                <Link to="/app/atbash">אתב"ש</Link>
 
                 <button onClick={handleLogout}>
                     התנתק
